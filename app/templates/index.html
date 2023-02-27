@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	{% if title %}
+	<title>{{ title }} - Demo</title>
+	{% else %}
+	<title>Welcome to Demo!</title>
+	{% endif %}
+    </head>
+
+    <body>
+        {% extends "base.html" %}
+        {% block content %}
+            <h1>Hello, {{ user.username }}!</h1>
+            Your class list:
+            {% for c in classes %}
+                <div>
+                    <p>{{ c.classInfo.code }} {{ c.classInfo.title }}
+                    <br/>{{ c.instructor }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% endblock %}
+    </body>
+</html>
+
+def index():
+    user = {'username': 'byan'}
+    classes = [{'classInfo': {'code':'CSC324', 'title': 'DevOps'}, 'instructor': 'Baoqiang Yan'},
+    {'classInfo': {'code': 'CSC184', 'title': 'Python Programming'}, 'instructor': 'Evan Noynaert'}]
+    return render_template('index.html', title='Home', user=user, classes=classes)
+
